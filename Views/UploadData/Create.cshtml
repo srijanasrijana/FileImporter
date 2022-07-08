@@ -1,0 +1,90 @@
+﻿@using UserManagementApp.Models
+@model IEnumerable<UploadDetail>
+@{
+
+    ViewBag.Title = "UploadFile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        @using (Html.BeginForm("Create", "UploadData", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <h4 class="text-center">Import File</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>File Upload (<a href="~/Files/SampleFile.csv" download>Download Sample File</a>)</label>
+                                    <div class="form-group">
+                                        <input type="file" name="postedFile" id="postedFile" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+                                        <input type="submit" value="Import" id="btn_upload" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+
+                    <div class="col-md-8">
+                        <h4 class="text-center">Imported Data</h4>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <table id="DataTable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Terminal ID</th>
+                                            <th>Serial No</th>
+                                            <th>Merchant ID</th>
+                                            <th>Description</th>
+                                            <th>Manufacturer</th>
+                                            <th>Model</th>
+                                            <th>State</th>
+                                        </tr>
+                                    </thead>
+                                    @if (Model.Count() > 0)
+                                    {
+                                        <tbody>
+                                            @foreach (UploadDetail uploadDetail in Model)
+                                            {
+                                                <tr>
+                                                    <td>@uploadDetail.TerminalId</td>
+                                                    <td>@uploadDetail.SerialNo</td>
+                                                    <td>@uploadDetail.MerchantId</td>
+                                                    <td>@uploadDetail.Description</td>
+                                                    <td>@uploadDetail.Manufacturer</td>
+                                                    <td>@uploadDetail.Model</td>
+                                                    <td>@uploadDetail.State</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    }
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "UploadFileList")
+</div>
